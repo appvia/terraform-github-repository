@@ -28,6 +28,22 @@ resource "github_repository" "repository" {
   }
 }
 
+## Provision the webhooks for the repository
+resource "github_repository_webhook" "webhooks" {
+  for_each = { for webhook in var.webhooks : webhook.url => webhook }
+
+  active     = each.value.enable
+  events     = each.value.events
+  repository = github_repository.repository.name
+
+  configuration {
+    content_type = each.value.content_type
+    insecure_ssl = each.value.insecure_ssl
+    secret       = each.value.secret
+    url          = each.value.url
+  }
+}
+
 ## Define the main branch
 resource "github_branch" "default" {
   branch     = var.default_branch

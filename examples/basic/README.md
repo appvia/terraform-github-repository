@@ -296,3 +296,31 @@ When contributing to this example:
 2. Update documentation for new features
 3. Ensure backward compatibility
 4. Add appropriate validation rules
+
+<!-- BEGIN_TF_DOCS -->
+## Providers
+
+No providers.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_advanced_collaborators"></a> [advanced\_collaborators](#input\_advanced\_collaborators) | Advanced collaborators with different permissions | <pre>list(object({<br/>    username   = string<br/>    permission = optional(string, "write")<br/>  }))</pre> | <pre>[<br/>  {<br/>    "permission": "admin",<br/>    "username": "senior-dev-1"<br/>  },<br/>  {<br/>    "permission": "admin",<br/>    "username": "senior-dev-2"<br/>  },<br/>  {<br/>    "permission": "write",<br/>    "username": "dev-1"<br/>  },<br/>  {<br/>    "permission": "write",<br/>    "username": "dev-2"<br/>  },<br/>  {<br/>    "permission": "read",<br/>    "username": "reviewer-1"<br/>  }<br/>]</pre> | no |
+| <a name="input_branch_protection"></a> [branch\_protection](#input\_branch\_protection) | Branch protection rules for basic repository | <pre>map(object({<br/>    enforce_admins                  = optional(bool, true)<br/>    require_conversation_resolution = optional(bool, false)<br/>    require_signed_commits          = optional(bool, false)<br/><br/>    required_status_checks = optional(object({<br/>      strict = optional(bool, true)<br/>      checks = optional(list(string), null)<br/>    }), null)<br/><br/>    required_pull_request_reviews = optional(object({<br/>      dismiss_stale_reviews           = optional(bool, true)<br/>      dismissal_users                 = optional(list(string), null)<br/>      dismissal_teams                 = optional(list(string), null)<br/>      dismissal_apps                  = optional(list(string), null)<br/>      required_approving_review_count = optional(number, 1)<br/><br/>      bypass_pull_request_allowances = optional(object({<br/>        users = optional(list(string), null)<br/>        teams = optional(list(string), null)<br/>        apps  = optional(list(string), null)<br/>      }), null)<br/>    }), null)<br/>  }))</pre> | `null` | no |
+| <a name="input_collaborators"></a> [collaborators](#input\_collaborators) | Basic collaborators for the repository | <pre>list(object({<br/>    username   = string<br/>    permission = optional(string, "write")<br/>  }))</pre> | <pre>[<br/>  {<br/>    "permission": "write",<br/>    "username": "example-user-1"<br/>  },<br/>  {<br/>    "permission": "read",<br/>    "username": "example-user-2"<br/>  }<br/>]</pre> | no |
+| <a name="input_environments"></a> [environments](#input\_environments) | Environments for the repository | <pre>map(object({<br/>    prevent_self_review = optional(bool, true)<br/>    can_admins_bypass   = optional(bool, false)<br/>    reviewers = optional(object({<br/>      users = optional(list(string), null)<br/>      teams = optional(list(string), null)<br/>    }), null)<br/>  }))</pre> | <pre>{<br/>  "production": {<br/>    "can_admins_bypass": false,<br/>    "prevent_self_review": true,<br/>    "reviewers": {<br/>      "teams": [<br/>        "senior-developers"<br/>      ],<br/>      "users": [<br/>        "senior-dev-1",<br/>        "senior-dev-2"<br/>      ]<br/>    }<br/>  },<br/>  "staging": {<br/>    "can_admins_bypass": true,<br/>    "prevent_self_review": false,<br/>    "reviewers": {<br/>      "teams": [<br/>        "developers"<br/>      ],<br/>      "users": [<br/>        "dev-1",<br/>        "dev-2"<br/>      ]<br/>    }<br/>  }<br/>}</pre> | no |
+| <a name="input_repository_name"></a> [repository\_name](#input\_repository\_name) | Base name for the repositories to create | `string` | `"terraform-github-repository-example"` | no |
+| <a name="input_use_template"></a> [use\_template](#input\_use\_template) | Whether to use a template repository | `bool` | `false` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_advanced_repository"></a> [advanced\_repository](#output\_advanced\_repository) | Advanced repository information |
+| <a name="output_basic_repository"></a> [basic\_repository](#output\_basic\_repository) | Basic repository information |
+| <a name="output_open_source_repository"></a> [open\_source\_repository](#output\_open\_source\_repository) | Open source repository information |
+| <a name="output_repository_security_settings"></a> [repository\_security\_settings](#output\_repository\_security\_settings) | Security-related settings for all repositories |
+| <a name="output_repository_urls"></a> [repository\_urls](#output\_repository\_urls) | Quick access URLs for all repositories |
+| <a name="output_summary"></a> [summary](#output\_summary) | Summary of all created repositories |
+<!-- END_TF_DOCS -->

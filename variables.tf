@@ -175,6 +175,25 @@ variable "branch_protection" {
   }))
 }
 
+variable "webhooks" {
+  description = "The webhooks to use for the repository"
+  type = list(object({
+    # The content type of the webhook
+    content_type = optional(string, "json")
+    # The URL of the webhook
+    url = string
+    # The enable flag of the webhook
+    enable = optional(bool, true)
+    # The events of the webhook
+    events = optional(list(string), ["push", "pull_request"])
+    # The insecure SSL flag of the webhook
+    insecure_ssl = optional(bool, false)
+    # The secret of the webhook
+    secret = optional(string, null)
+  }))
+  default = []
+}
+
 variable "environments" {
   description = "The environments to use within repositories"
   type = map(object({

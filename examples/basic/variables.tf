@@ -70,7 +70,6 @@ variable "advanced_collaborators" {
 variable "branch_protection" {
   description = "Branch protection rules for basic repository"
   type = map(object({
-    branch                          = string
     enforce_admins                  = optional(bool, true)
     require_conversation_resolution = optional(bool, false)
     require_signed_commits          = optional(bool, false)
@@ -94,24 +93,7 @@ variable "branch_protection" {
       }), null)
     }), null)
   }))
-  default = {
-    main = {
-      branch                          = "main"
-      enforce_admins                  = true
-      require_conversation_resolution = true
-      require_signed_commits          = true
-
-      required_status_checks = {
-        strict = true
-        checks = ["ci", "test"]
-      }
-
-      required_pull_request_reviews = {
-        dismiss_stale_reviews           = true
-        required_approving_review_count = 1
-      }
-    }
-  }
+  default = null
 }
 
 variable "environments" {
