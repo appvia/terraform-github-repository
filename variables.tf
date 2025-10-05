@@ -146,29 +146,47 @@ variable "allow_auto_merge" {
 variable "branch_protection" {
   description = "The branch protection to use for the repository"
   type = map(object({
-    allows_force_pushes             = optional(bool, false)
-    allows_deletions                = optional(bool, false)
-    dismiss_stale_reviews           = optional(bool, true)
-    enforce_admins                  = optional(bool, true)
-    lock_branch                     = optional(bool, false)
+    # Indicates if force pushes are allowed for the branch
+    allows_force_pushes = optional(bool, false)
+    # Indicates if deletions are allowed for the branch
+    allows_deletions = optional(bool, false)
+    # Indicates if stale reviews are dismissed for the branch
+    dismiss_stale_reviews = optional(bool, true)
+    # Indicates if admins are included in the branch protection rules
+    enforce_admins = optional(bool, true)
+    # Indicates if the branch is locked
+    lock_branch = optional(bool, false)
+    # Indicates if conversation resolution is required for the branch
     require_conversation_resolution = optional(bool, false)
-    require_last_push_approval      = optional(bool, false)
-    require_signed_commits          = optional(bool, true)
-    required_linear_history         = optional(bool, false)
+    # Indicates if the last push approval is required for the branch
+    require_last_push_approval = optional(bool, false)
+    # Indicates if signed commits are required for the branch
+    require_signed_commits = optional(bool, true)
+    # Indicates if linear history is required for the branch
+    required_linear_history = optional(bool, false)
 
+    # The required status checks which are required for the branch
     required_status_checks = optional(object({
       strict   = optional(bool, true)
       contexts = optional(list(string), null)
     }), null)
 
+    # The required pull request reviews which are required for the branch
     required_pull_request_reviews = optional(object({
-      dismiss_stale_reviews           = optional(bool, true)
-      dismissal_restrictions          = optional(list(string), null)
-      pull_request_bypassers          = optional(list(string), null)
-      require_code_owner_reviews      = optional(bool, true)
-      require_last_push_approval      = optional(bool, false)
+      # Indicates if stale reviews are dismissed
+      dismiss_stale_reviews = optional(bool, true)
+      # The dismissal restrictions which are required for the branch
+      dismissal_restrictions = optional(list(string), null)
+      # The pull request bypassers which are required for the branch
+      pull_request_bypassers = optional(list(string), null)
+      # Indicates if code owner reviews are required for the branch
+      require_code_owner_reviews = optional(bool, true)
+      # Indicates if the last push approval is required for the branch
+      require_last_push_approval = optional(bool, false)
+      # The required approving review count which is required for the branch
       required_approving_review_count = optional(number, 1)
-      restrict_dismissals             = optional(bool, false)
+      # Indicates if dismissals are restricted for the branch
+      restrict_dismissals = optional(bool, false)
     }), null)
   }))
   default = {
@@ -223,7 +241,7 @@ variable "environments" {
       teams = optional(list(string), null)
     }), null)
   }))
-  default = null
+  default = {}
 }
 
 variable "topics" {

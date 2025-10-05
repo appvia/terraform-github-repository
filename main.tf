@@ -54,7 +54,8 @@ resource "github_branch" "default" {
 resource "github_repository_environment" "environments" {
   for_each = var.environments
 
-  environment         = each.value
+  environment         = each.key
+  can_admins_bypass   = try(each.value.can_admins_bypass, null)
   prevent_self_review = try(each.value.prevent_self_review, null)
   repository          = github_repository.repository.name
 
