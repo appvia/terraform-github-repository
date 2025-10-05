@@ -146,7 +146,6 @@ variable "branch_protection" {
     dismiss_stale_reviews           = optional(bool, true)
     enforce_admins                  = optional(bool, true)
     lock_branch                     = optional(bool, false)
-    prevent_self_review             = optional(bool, true)
     require_conversation_resolution = optional(bool, false)
     require_last_push_approval      = optional(bool, false)
     require_signed_commits          = optional(bool, true)
