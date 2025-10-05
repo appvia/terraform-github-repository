@@ -28,8 +28,11 @@ variable "visibility" {
 variable "template" {
   description = "The template of the repository to provision"
   type = object({
-    owner                = string
-    repository           = string
+    # The owner of the repository template
+    owner = string
+    # The repository template to use for the repository
+    repository = string
+    # Include all branches
     include_all_branches = optional(bool, false)
   })
   default = null
@@ -60,7 +63,9 @@ variable "default_branch" {
 variable "collaborators" {
   description = "The GitHub user or organization to create the repositories under"
   type = list(object({
-    username   = string
+    # The username of the collaborator
+    username = string
+    # The permission of the collaborator
     permission = optional(string, "write")
   }))
   default = []
