@@ -149,7 +149,6 @@ variable "branch_protection" {
     require_conversation_resolution = optional(bool, false)
     require_last_push_approval      = optional(bool, false)
     require_signed_commits          = optional(bool, true)
-    required_approving_review_count = optional(number, 1)
     required_linear_history         = optional(bool, false)
 
     required_status_checks = optional(object({
