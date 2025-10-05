@@ -141,38 +141,51 @@ variable "allow_auto_merge" {
 variable "branch_protection" {
   description = "The branch protection to use for the repository"
   type = map(object({
-    dismissal_apps        = optional(list(string), null)
-    dismissal_teams       = optional(list(string), null)
-    dismissal_users       = optional(list(string), null)
-    enforce_admins        = optional(bool, true)
-    dismiss_stale_reviews = optional(bool, true)
-    prevent_self_review   = optional(bool, true)
-
+    allows_force_pushes             = optional(bool, false)
+    allows_deletions                = optional(bool, false)
+    dismiss_stale_reviews           = optional(bool, true)
+    enforce_admins                  = optional(bool, true)
+    lock_branch                     = optional(bool, false)
+    prevent_self_review             = optional(bool, true)
     require_conversation_resolution = optional(bool, false)
-    require_code_owner_reviews      = optional(bool, true)
-    required_approving_review_count = optional(number, 1)
     require_last_push_approval      = optional(bool, false)
     require_signed_commits          = optional(bool, true)
+    required_approving_review_count = optional(number, 1)
+    required_linear_history         = optional(bool, false)
 
     required_status_checks = optional(object({
-      strict = optional(bool, true)
-      checks = optional(list(string), null)
+      strict   = optional(bool, true)
+      contexts = optional(list(string), null)
     }), null)
 
     required_pull_request_reviews = optional(object({
       dismiss_stale_reviews           = optional(bool, true)
-      dismissal_users                 = optional(list(string), null)
-      dismissal_teams                 = optional(list(string), null)
-      dismissal_apps                  = optional(list(string), null)
+      dismissal_restrictions          = optional(list(string), null)
+      pull_request_bypassers          = optional(list(string), null)
+      require_code_owner_reviews      = optional(bool, true)
+      require_last_push_approval      = optional(bool, false)
       required_approving_review_count = optional(number, 1)
-
-      bypass_pull_request_allowances = optional(object({
-        users = optional(list(string), null)
-        teams = optional(list(string), null)
-        apps  = optional(list(string), null)
-      }), null)
+      restrict_dismissals             = optional(bool, false)
     }), null)
   }))
+  default = {
+    main = {
+      allows_deletions                = false
+      allows_force_pushes             = false
+      dismiss_stale_reviews           = true
+      enforce_admins                  = true
+      lock_branch                     = false
+      require_conversation_resolution = false
+      require_last_push_approval      = false
+      require_signed_commits          = true
+      required_approving_review_count = 1
+      required_linear_history         = false
+      required_status_checks = {
+        strict   = true
+        contexts = null
+      }
+    }
+  }
 }
 
 variable "webhooks" {

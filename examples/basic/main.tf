@@ -79,7 +79,6 @@ module "advanced_repository" {
   # Branch protection with comprehensive rules
   branch_protection = {
     main = {
-      branch                          = "main"
       enforce_admins                  = true
       require_conversation_resolution = true
       require_signed_commits          = true
@@ -91,19 +90,15 @@ module "advanced_repository" {
 
       required_pull_request_reviews = {
         dismiss_stale_reviews           = true
+        pull_request_bypassers          = ["bot-user"]
+        require_code_owner_reviews      = true
+        require_last_push_approval      = false
         required_approving_review_count = 2
-        dismissal_users                 = ["admin-user"]
-        dismissal_teams                 = ["admin-team"]
-
-        bypass_pull_request_allowances = {
-          users = ["bot-user"]
-          teams = ["bot-team"]
-        }
+        restrict_dismissals             = false
       }
     }
 
     develop = {
-      branch                          = "develop"
       enforce_admins                  = true
       require_conversation_resolution = false
       require_signed_commits          = false
