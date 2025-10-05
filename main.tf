@@ -55,14 +55,14 @@ resource "github_repository_environment" "environments" {
   for_each = var.environments
 
   environment         = each.value
-  prevent_self_review = each.value.prevent_self_review
+  prevent_self_review = try(each.value.prevent_self_review, null)
   repository          = github_repository.repository.name
 
   dynamic "reviewers" {
     for_each = each.value.reviewers != null ? [1] : []
     content {
-      users = each.value.reviewers.users
-      teams = each.value.reviewers.teams
+      users = try(each.value.reviewers.users, null)
+      teams = try(each.value.reviewers.teams, null)
     }
   }
 
@@ -76,34 +76,34 @@ resource "github_repository_environment" "environments" {
 resource "github_branch_protection" "branch_protection" {
   for_each = var.branch_protection
 
-  allows_force_pushes             = each.value.allow_force_pushes
-  allows_deletions                = each.value.allows_deletions
-  enforce_admins                  = each.value.enforce_admins
-  lock_branch                     = each.value.lock_branch
-  pattern                         = each.value.pattern
+  pattern                         = each.key
+  allows_force_pushes             = try(each.value.allows_force_pushes, null)
+  allows_deletions                = try(each.value.allows_deletions, null)
+  enforce_admins                  = try(each.value.enforce_admins, null)
+  lock_branch                     = try(each.value.lock_branch, null)
   repository_id                   = github_repository.repository.node_id
-  require_conversation_resolution = each.value.require_conversation_resolution
-  require_signed_commits          = each.value.require_signed_commits
-  required_linear_history         = each.value.required_linear_history
+  require_conversation_resolution = try(each.value.require_conversation_resolution, null)
+  require_signed_commits          = try(each.value.require_signed_commits, null)
+  required_linear_history         = try(each.value.required_linear_history, null)
 
   dynamic "required_status_checks" {
     for_each = each.value.required_status_checks != null ? [1] : []
     content {
-      strict   = each.value.required_status_checks.strict
-      contexts = each.value.required_status_checks.contexts
+      strict   = try(each.value.required_status_checks.strict, null)
+      contexts = try(each.value.required_status_checks.contexts, null)
     }
   }
 
   dynamic "required_pull_request_reviews" {
     for_each = each.value.required_pull_request_reviews != null ? [1] : []
     content {
-      dismiss_stale_reviews           = each.value.required_pull_request_reviews.dismiss_stale_reviews
-      dismissal_restrictions          = each.value.required_pull_request_reviews.dismissal_restrictions
-      pull_request_bypassers          = each.value.required_pull_request_reviews.pull_request_bypassers
-      require_code_owner_reviews      = each.value.required_pull_request_reviews.require_code_owner_reviews
-      require_last_push_approval      = each.value.required_pull_request_reviews.require_last_push_approval
-      required_approving_review_count = each.value.required_pull_request_reviews.required_approving_review_count
-      restrict_dismissals             = each.value.required_pull_request_reviews.restrict_dismissals
+      dismiss_stale_reviews           = try(each.value.required_pull_request_reviews.dismiss_stale_reviews, null)
+      dismissal_restrictions          = try(each.value.required_pull_request_reviews.dismissal_restrictions, null)
+      pull_request_bypassers          = try(each.value.required_pull_request_reviews.pull_request_bypassers, null)
+      require_code_owner_reviews      = try(each.value.required_pull_request_reviews.require_code_owner_reviews, null)
+      require_last_push_approval      = try(each.value.required_pull_request_reviews.require_last_push_approval, null)
+      required_approving_review_count = try(each.value.required_pull_request_reviews.required_approving_review_count, null)
+      restrict_dismissals             = try(each.value.required_pull_request_reviews.restrict_dismissals, null)
     }
   }
 }
