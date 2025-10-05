@@ -25,16 +25,14 @@ variable "visibility" {
   default     = "private"
 }
 
-variable "repository_template" {
-  description = "The repository template of the repository to provision"
-  type        = string
-  default     = null
-}
-
-variable "organization_template" {
-  description = "The organization template of the repository to provision"
-  type        = string
-  default     = null
+variable "template" {
+  description = "The template of the repository to provision"
+  type = object({
+    owner                = string
+    repository           = string
+    include_all_branches = optional(bool, false)
+  })
+  default = null
 }
 
 variable "delete_branch_on_merge" {
@@ -59,13 +57,61 @@ variable "default_branch" {
   }
 }
 
-variable "repository_collaborators" {
+variable "collaborators" {
   description = "The GitHub user or organization to create the repositories under"
   type = list(object({
     username   = string
     permission = optional(string, "write")
   }))
   default = []
+}
+
+variable "enable_vulnerability_alerts" {
+  description = "Indicates if vulnerability alerts are enabled within the repository"
+  type        = bool
+  default     = null
+}
+
+variable "enable_issues" {
+  description = "Indicates if issues are enabled within the repository"
+  type        = bool
+  default     = true
+}
+
+variable "enable_projects" {
+  description = "Indicates if projects are enabled within the repository"
+  type        = bool
+  default     = false
+}
+
+variable "enable_wiki" {
+  description = "Indicates if wiki is enabled within the repository"
+  type        = bool
+  default     = false
+}
+
+variable "enable_downloads" {
+  description = "Indicates if downloads are enabled within the repository"
+  type        = bool
+  default     = false
+}
+
+variable "enable_discussions" {
+  description = "Indicates if discussions are enabled within the repository"
+  type        = bool
+  default     = false
+}
+
+variable "homepage_url" {
+  description = "The homepage URL of the repository to provision"
+  type        = string
+  default     = null
+}
+
+variable "enable_archived" {
+  description = "Indicates if the repository is archived"
+  type        = bool
+  default     = false
 }
 
 variable "allow_merge_commit" {
@@ -92,86 +138,60 @@ variable "allow_auto_merge" {
   default     = false
 }
 
-variable "prevent_self_review" {
-  description = "Indicates a user cannot approve their own pull requests"
-  type        = bool
-  default     = true
+variable "branch_protection" {
+  description = "The branch protection to use for the repository"
+  type = map(object({
+    dismissal_apps        = optional(list(string), null)
+    dismissal_teams       = optional(list(string), null)
+    dismissal_users       = optional(list(string), null)
+    enforce_admins        = optional(bool, true)
+    dismiss_stale_reviews = optional(bool, true)
+    prevent_self_review   = optional(bool, true)
+
+    require_conversation_resolution = optional(bool, false)
+    require_code_owner_reviews      = optional(bool, true)
+    required_approving_review_count = optional(number, 1)
+    require_last_push_approval      = optional(bool, false)
+    require_signed_commits          = optional(bool, true)
+
+    required_status_checks = optional(object({
+      strict = optional(bool, true)
+      checks = optional(list(string), null)
+    }), null)
+
+    required_pull_request_reviews = optional(object({
+      dismiss_stale_reviews           = optional(bool, true)
+      dismissal_users                 = optional(list(string), null)
+      dismissal_teams                 = optional(list(string), null)
+      dismissal_apps                  = optional(list(string), null)
+      required_approving_review_count = optional(number, 1)
+
+      bypass_pull_request_allowances = optional(object({
+        users = optional(list(string), null)
+        teams = optional(list(string), null)
+        apps  = optional(list(string), null)
+      }), null)
+    }), null)
+  }))
 }
 
-variable "dismiss_stale_reviews" {
-  description = "Indicates a review will be dismissed if it becomes stale"
-  type        = bool
-  default     = true
+variable "environments" {
+  description = "The environments to use within repositories"
+  type = map(object({
+    # Ensures that the user cannot approve their own pull requests
+    prevent_self_review = optional(bool, true)
+    # Ensures that admins are subject to the environment's protection rules
+    can_admins_bypass = optional(bool, false)
+    # The reviewers to use for the environment
+    reviewers = optional(object({
+      users = optional(list(string), null)
+      teams = optional(list(string), null)
+    }), null)
+  }))
+  default = null
 }
 
-variable "dismissal_users" {
-  description = "The users to dismiss reviews"
-  type        = list(string)
-  default     = null
-}
-
-variable "dismissal_apps" {
-  description = "The apps to dismiss reviews"
-  type        = list(string)
-  default     = null
-}
-
-variable "dismissal_teams" {
-  description = "The teams to dismiss reviews"
-  type        = list(string)
-  default     = null
-}
-
-variable "required_approving_review_count" {
-  description = "The number of approving reviews required"
-  type        = number
-  default     = 1
-}
-
-variable "enforce_branch_protection_for_admins" {
-  description = "Indicates the branch protection is enforced for admins"
-  type        = bool
-  default     = true
-}
-
-variable "bypass_pull_request_allowances_users" {
-  description = "The users to bypass pull request allowances"
-  type        = list(string)
-  default     = null
-}
-
-variable "bypass_pull_request_allowances_teams" {
-  description = "The teams to bypass pull request allowances"
-  type        = list(string)
-  default     = null
-}
-
-variable "bypass_pull_request_allowances_apps" {
-  description = "The apps to bypass pull request allowances"
-  type        = list(string)
-  default     = null
-}
-
-variable "required_status_checks" {
-  description = "The status checks to require within repositories"
-  type        = list(string)
-  default = [
-    "Terraform / Terraform Plan and Apply / Commitlint",
-    "Terraform / Terraform Plan and Apply / Terraform Format",
-    "Terraform / Terraform Plan and Apply / Terraform Lint",
-    "Terraform / Terraform Plan and Apply / Terraform Plan",
-    "Terraform / Terraform Plan and Apply / Terraform Security",
-    "Terraform / Terraform Plan and Apply / Terraform Validate",
-  ]
-}
-
-variable "repository_environments" {
-  description = "The production environment to use within repositories"
-  type        = list(string)
-  default     = ["production"]
-}
-
-variable "repository_topics" {
+variable "topics" {
   description = "The topics to apply to the repositories"
   type        = list(string)
   default     = ["aws", "terraform", "landing-zone"]
