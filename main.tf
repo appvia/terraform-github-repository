@@ -130,7 +130,7 @@ resource "github_repository_collaborator" "users" {
 }
 
 ## Associate any collaborator teams with the repository
-resource "github_repository_team" "teams" {
+resource "github_team_repository" "teams" {
   for_each = local.collaborator_teams
 
   permission = each.value.permission
