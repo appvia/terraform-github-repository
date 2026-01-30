@@ -130,7 +130,7 @@ resource "github_repository_collaborators" "collaborators" {
     for_each = local.collaborator_users
 
     content {
-      username   = user.value.username
+      username   = user.key
       permission = user.value.permission
     }
   }
@@ -139,7 +139,7 @@ resource "github_repository_collaborators" "collaborators" {
     for_each = local.collaborator_teams
 
     content {
-      team_id    = team.value.team_id
+      team_id    = team.key
       permission = team.value.permission
     }
   }
