@@ -45,6 +45,8 @@ resource "github_repository_webhook" "webhooks" {
 
 ## Define the main branch
 resource "github_branch" "default" {
+  count = var.default_branch != null ? 1 : 0
+
   branch     = var.default_branch
   repository = github_repository.repository.name
 }

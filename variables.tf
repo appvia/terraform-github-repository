@@ -47,17 +47,7 @@ variable "delete_branch_on_merge" {
 variable "default_branch" {
   description = "The default branch of the repository to provision"
   type        = string
-  default     = "main"
-
-  validation {
-    condition     = length(var.default_branch) > 0
-    error_message = "The default branch name must be greater than 0"
-  }
-
-  validation {
-    condition     = length(var.default_branch) <= 100
-    error_message = "The default branch name must be less than or equal to 100"
-  }
+  default     = null
 }
 
 variable "collaborators" {
