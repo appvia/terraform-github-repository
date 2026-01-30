@@ -52,13 +52,18 @@ variable "default_branch" {
 
 variable "collaborators" {
   description = "The GitHub user or organization to create the repositories under"
-  type = list(object({
-    # The username of the collaborator
-    username = string
-    # The permission of the collaborator
-    permission = optional(string, "write")
-  }))
-  default = []
+  type = object({
+    # User permissions to the repository. Can be one of: pull, triage, push, maintain, admin
+    users = optional(map(object({
+      # The permission of the collaborator
+      permission = optional(string, "triage")
+    })), {})
+    teams = optional(map(object({
+      # The permission of the collaborator
+      permission = optional(string, "triage")
+    })), {})
+  })
+  default = null
 }
 
 variable "enable_vulnerability_alerts" {

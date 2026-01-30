@@ -21,50 +21,20 @@ variable "repository_name" {
 
 variable "collaborators" {
   description = "Basic collaborators for the repository"
-  type = list(object({
-    username   = string
-    permission = optional(string, "write")
-  }))
-  default = [
-    {
-      username   = "example-user-1"
-      permission = "write"
-    },
-    {
-      username   = "example-user-2"
-      permission = "read"
-    }
-  ]
+  type = object({
+    users = optional(map(object({
+      permission = optional(string, "triage")
+    })), {})
+    teams = optional(map(object({
+      permission = optional(string, "triage")
+    })), {})
+  })
+  default = {}
 }
 
 variable "advanced_collaborators" {
   description = "Advanced collaborators with different permissions"
-  type = list(object({
-    username   = string
-    permission = optional(string, "write")
-  }))
-  default = [
-    {
-      username   = "senior-dev-1"
-      permission = "admin"
-    },
-    {
-      username   = "senior-dev-2"
-      permission = "admin"
-    },
-    {
-      username   = "dev-1"
-      permission = "write"
-    },
-    {
-      username   = "dev-2"
-      permission = "write"
-    },
-    {
-      username   = "reviewer-1"
-      permission = "read"
-    }
-  ]
+  type        = map(string)
 }
 
 variable "branch_protection" {

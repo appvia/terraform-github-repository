@@ -7,38 +7,19 @@
 repository_name = "my-terraform-repository"
 
 # Basic Collaborators
-collaborators = [
-  {
-    username   = "john-doe"
-    permission = "write"
-  },
-  {
-    username   = "jane-smith"
-    permission = "read"
+collaborators = {
+  users = {
+    "john-doe"   = { permission = "admin" }
+    "jane-smith" = { permission = "write" }
   }
 ]
 
 # Advanced Collaborators (for advanced repository)
-advanced_collaborators = [
-  {
-    username   = "senior-dev-1"
-    permission = "admin"
-  },
-  {
-    username   = "senior-dev-2"
-    permission = "admin"
-  },
-  {
-    username   = "dev-1"
-    permission = "write"
-  },
-  {
-    username   = "dev-2"
-    permission = "write"
-  },
-  {
-    username   = "reviewer-1"
-    permission = "read"
+advanced_collaborators = {
+  users = {
+    "devops-admin" = { permission = "admin" }
+    "devops-writer"= { permission = "write" }
+    "devops-reader"= { permission = "read" }
   }
 ]
 

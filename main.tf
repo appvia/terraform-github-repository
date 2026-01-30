@@ -1,3 +1,13 @@
+locals {
+  ## Collaborators users
+  collaborator_users = try(var.collaborators.users, {})
+  ## Collaborators teams
+  collaborator_teams = try(var.collaborators.teams, {})
+  ## The total number of collaborators
+  total_collaborators = length(local.collaborator_users) + length(local.collaborator_teams)
+}
+
+
 ## Provision the repositories in github
 resource "github_repository" "repository" {
   name                   = var.repository
@@ -111,10 +121,26 @@ resource "github_branch_protection" "branch_protection" {
 }
 
 ## Associate any collaborators with the repositories
-resource "github_repository_collaborator" "collaborators" {
-  for_each = { for collaborator in var.collaborators : collaborator.username => collaborator }
+resource "github_repository_collaborators" "collaborators" {
+  count = local.total_collaborators > 0 ? 1 : 0
 
-  permission = each.value.permission
   repository = github_repository.repository.name
-  username   = each.value.username
+
+  dynamic "user" {
+    for_each = local.collaborator_users
+
+    content {
+      username   = user.value.username
+      permission = user.value.permission
+    }
+  }
+
+  dynamic "team" {
+    for_each = local.collaborator_teams
+
+    content {
+      team_id    = team.value.team_id
+      permission = team.value.permission
+    }
+  }
 }
