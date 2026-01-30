@@ -120,27 +120,20 @@ resource "github_branch_protection" "branch_protection" {
   }
 }
 
-## Associate any collaborators with the repositories
-resource "github_repository_collaborators" "collaborators" {
-  count = local.total_collaborators > 0 ? 1 : 0
+## Associate any collaborators with the repository
+resource "github_repository_collaborator" "users" {
+  for_each = local.collaborator_users
 
+  permission = each.value.permission
   repository = github_repository.repository.name
+  username   = each.key
+}
 
-  dynamic "user" {
-    for_each = local.collaborator_users
+## Associate any collaborator teams with the repository
+resource "github_repository_team" "teams" {
+  for_each = local.collaborator_teams
 
-    content {
-      username   = user.key
-      permission = user.value.permission
-    }
-  }
-
-  dynamic "team" {
-    for_each = local.collaborator_teams
-
-    content {
-      team_id    = team.key
-      permission = team.value.permission
-    }
-  }
+  permission = each.value.permission
+  repository = github_repository.repository.name  
+  team_id    = each.key
 }
