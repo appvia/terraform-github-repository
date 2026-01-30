@@ -18,7 +18,7 @@ This example creates three different types of repositories:
 - Visibility settings (private/public)
 - Topics and categorization
 - Homepage URL configuration
-- Repository features (issues, projects, wiki, downloads, discussions)
+- Repository features (issues, projects, wiki, discussions)
 
 ### Security & Compliance
 
@@ -195,26 +195,26 @@ module "open_source_repository" {
 
 ## Variables
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| repository_name | Base name for the repositories to create | `string` | `"terraform-github-repository-example"` | no |
-| collaborators | Basic collaborators for the repository | `list(object)` | `[]` | no |
-| advanced_collaborators | Advanced collaborators with different permissions | `list(object)` | `[]` | no |
-| branch_protection | Branch protection rules | `map(object)` | `{}` | no |
-| environments | Environment protection rules | `map(object)` | `{}` | no |
-| template | Template repository configuration | `object` | `null` | no |
-| use_template | Whether to use a template repository | `bool` | `false` | no |
+| Name                   | Description                                       | Type           | Default                                 | Required |
+| ---------------------- | ------------------------------------------------- | -------------- | --------------------------------------- | :------: |
+| repository_name        | Base name for the repositories to create          | `string`       | `"terraform-github-repository-example"` |    no    |
+| collaborators          | Basic collaborators for the repository            | `list(object)` | `[]`                                    |    no    |
+| advanced_collaborators | Advanced collaborators with different permissions | `list(object)` | `[]`                                    |    no    |
+| branch_protection      | Branch protection rules                           | `map(object)`  | `{}`                                    |    no    |
+| environments           | Environment protection rules                      | `map(object)`  | `{}`                                    |    no    |
+| template               | Template repository configuration                 | `object`       | `null`                                  |    no    |
+| use_template           | Whether to use a template repository              | `bool`         | `false`                                 |    no    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| basic_repository | Basic repository information |
-| advanced_repository | Advanced repository information |
-| open_source_repository | Open source repository information |
+| Name                         | Description                                    |
+| ---------------------------- | ---------------------------------------------- |
+| basic_repository             | Basic repository information                   |
+| advanced_repository          | Advanced repository information                |
+| open_source_repository       | Open source repository information             |
 | repository_security_settings | Security-related settings for all repositories |
-| repository_urls | Quick access URLs for all repositories |
-| summary | Summary of all created repositories |
+| repository_urls              | Quick access URLs for all repositories         |
+| summary                      | Summary of all created repositories            |
 
 ## Usage Patterns
 
@@ -324,3 +324,4 @@ No providers.
 | <a name="output_repository_urls"></a> [repository\_urls](#output\_repository\_urls) | Quick access URLs for all repositories |
 | <a name="output_summary"></a> [summary](#output\_summary) | Summary of all created repositories |
 <!-- END_TF_DOCS -->
+

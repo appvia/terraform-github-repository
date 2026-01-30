@@ -256,7 +256,6 @@ This module is part of the terraform-aws-landing-zones project and follows the s
 | <a name="input_description"></a> [description](#input\_description) | The description of the repository to provision | `string` | `"Terraform AWS Pipeline"` | no |
 | <a name="input_enable_archived"></a> [enable\_archived](#input\_enable\_archived) | Indicates if the repository is archived | `bool` | `false` | no |
 | <a name="input_enable_discussions"></a> [enable\_discussions](#input\_enable\_discussions) | Indicates if discussions are enabled within the repository | `bool` | `false` | no |
-| <a name="input_enable_downloads"></a> [enable\_downloads](#input\_enable\_downloads) | Indicates if downloads are enabled within the repository | `bool` | `false` | no |
 | <a name="input_enable_issues"></a> [enable\_issues](#input\_enable\_issues) | Indicates if issues are enabled within the repository | `bool` | `true` | no |
 | <a name="input_enable_projects"></a> [enable\_projects](#input\_enable\_projects) | Indicates if projects are enabled within the repository | `bool` | `false` | no |
 | <a name="input_enable_vulnerability_alerts"></a> [enable\_vulnerability\_alerts](#input\_enable\_vulnerability\_alerts) | Indicates if vulnerability alerts are enabled within the repository | `bool` | `null` | no |

@@ -8,7 +8,6 @@ resource "github_repository" "repository" {
   allow_squash_merge     = var.allow_squash_merge
   delete_branch_on_merge = var.delete_branch_on_merge
   has_discussions        = var.enable_discussions
-  has_downloads          = var.enable_downloads
   has_issues             = var.enable_issues
   has_projects           = var.enable_projects
   has_wiki               = var.enable_wiki

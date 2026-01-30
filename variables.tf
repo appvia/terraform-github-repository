@@ -95,12 +95,6 @@ variable "enable_wiki" {
   default     = false
 }
 
-variable "enable_downloads" {
-  description = "Indicates if downloads are enabled within the repository"
-  type        = bool
-  default     = false
-}
-
 variable "enable_discussions" {
   description = "Indicates if discussions are enabled within the repository"
   type        = bool

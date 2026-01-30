@@ -20,7 +20,6 @@ module "basic_repository" {
   enable_issues               = true
   enable_projects             = false
   enable_wiki                 = false
-  enable_downloads            = false
   enable_discussions          = false
   enable_vulnerability_alerts = true
 
@@ -59,7 +58,6 @@ module "advanced_repository" {
   enable_issues               = true
   enable_projects             = true
   enable_wiki                 = true
-  enable_downloads            = true
   enable_discussions          = true
   enable_vulnerability_alerts = true
 
@@ -154,7 +152,6 @@ module "open_source_repository" {
   enable_issues               = true
   enable_projects             = true
   enable_wiki                 = true
-  enable_downloads            = true
   enable_discussions          = true
   enable_vulnerability_alerts = true
 
