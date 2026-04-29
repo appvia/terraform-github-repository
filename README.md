@@ -283,5 +283,4 @@ This module is part of the terraform-aws-landing-zones project and follows the s
 | <a name="output_repository_ssh_clone_url"></a> [repository\_ssh\_clone\_url](#output\_repository\_ssh\_clone\_url) | The SSH clone URL of the created repository |
 | <a name="output_repository_topics"></a> [repository\_topics](#output\_repository\_topics) | The topics applied to the repository |
 | <a name="output_repository_visibility"></a> [repository\_visibility](#output\_repository\_visibility) | The visibility of the created repository |
-| <a name="output_repository_vulnerability_alerts"></a> [repository\_vulnerability\_alerts](#output\_repository\_vulnerability\_alerts) | Whether vulnerability alerts are enabled |
 <!-- END_TF_DOCS -->
