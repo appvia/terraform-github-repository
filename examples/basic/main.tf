@@ -17,11 +17,10 @@ module "basic_repository" {
   topics      = ["terraform", "example", "basic"]
 
   # Repository features
-  enable_issues               = true
-  enable_projects             = false
-  enable_wiki                 = false
-  enable_discussions          = false
-  enable_vulnerability_alerts = true
+  enable_issues      = true
+  enable_projects    = false
+  enable_wiki        = false
+  enable_discussions = false
 
   # Merge settings
   allow_merge_commit     = true
@@ -55,11 +54,10 @@ module "advanced_repository" {
   topics       = ["terraform", "example", "advanced", "github-actions", "ci-cd"]
 
   # Repository features
-  enable_issues               = true
-  enable_projects             = true
-  enable_wiki                 = true
-  enable_discussions          = true
-  enable_vulnerability_alerts = true
+  enable_issues      = true
+  enable_projects    = true
+  enable_wiki        = true
+  enable_discussions = true
 
   # Merge settings
   allow_merge_commit     = true
@@ -149,11 +147,10 @@ module "open_source_repository" {
   topics      = ["open-source", "terraform", "example", "public"]
 
   # Open source friendly settings
-  enable_issues               = true
-  enable_projects             = true
-  enable_wiki                 = true
-  enable_discussions          = true
-  enable_vulnerability_alerts = true
+  enable_issues      = true
+  enable_projects    = true
+  enable_wiki        = true
+  enable_discussions = true
 
   # Merge settings
   allow_merge_commit     = true

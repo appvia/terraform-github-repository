@@ -66,12 +66,6 @@ variable "collaborators" {
   default = null
 }
 
-variable "enable_vulnerability_alerts" {
-  description = "Indicates if vulnerability alerts are enabled within the repository"
-  type        = bool
-  default     = null
-}
-
 variable "enable_issues" {
   description = "Indicates if issues are enabled within the repository"
   type        = bool

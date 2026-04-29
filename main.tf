@@ -3,8 +3,6 @@ locals {
   collaborator_users = try(var.collaborators.users, {})
   ## Collaborators teams
   collaborator_teams = try(var.collaborators.teams, {})
-  ## The total number of collaborators
-  total_collaborators = length(local.collaborator_users) + length(local.collaborator_teams)
 }
 
 
@@ -25,7 +23,6 @@ resource "github_repository" "repository" {
   archived               = var.enable_archived
   topics                 = var.topics
   visibility             = var.visibility
-  vulnerability_alerts   = var.enable_vulnerability_alerts
 
   dynamic "template" {
     for_each = var.template != null ? [1] : toset([])
@@ -134,6 +131,7 @@ resource "github_team_repository" "teams" {
   for_each = local.collaborator_teams
 
   permission = each.value.permission
-  repository = github_repository.repository.name  
+  repository = github_repository.repository.name
   team_id    = each.key
 }
+
