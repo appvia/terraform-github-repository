@@ -40,11 +40,6 @@ output "repository_topics" {
   value       = github_repository.repository.topics
 }
 
-output "repository_vulnerability_alerts" {
-  description = "Whether vulnerability alerts are enabled"
-  value       = github_repository.repository.vulnerability_alerts
-}
-
 output "repository_allow_merge_commit" {
   description = "Whether merge commits are allowed"
   value       = github_repository.repository.allow_merge_commit
