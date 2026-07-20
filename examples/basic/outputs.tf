@@ -53,7 +53,6 @@ output "repository_security_settings" {
   description = "Security-related settings for all repositories"
   value = {
     basic = {
-      vulnerability_alerts   = module.basic_repository.repository_vulnerability_alerts
       allow_merge_commit     = module.basic_repository.repository_allow_merge_commit
       allow_rebase_merge     = module.basic_repository.repository_allow_rebase_merge
       allow_squash_merge     = module.basic_repository.repository_allow_squash_merge
@@ -61,7 +60,6 @@ output "repository_security_settings" {
       delete_branch_on_merge = module.basic_repository.repository_delete_branch_on_merge
     }
     advanced = {
-      vulnerability_alerts   = module.advanced_repository.repository_vulnerability_alerts
       allow_merge_commit     = module.advanced_repository.repository_allow_merge_commit
       allow_rebase_merge     = module.advanced_repository.repository_allow_rebase_merge
       allow_squash_merge     = module.advanced_repository.repository_allow_squash_merge
@@ -69,7 +67,6 @@ output "repository_security_settings" {
       delete_branch_on_merge = module.advanced_repository.repository_delete_branch_on_merge
     }
     open_source = {
-      vulnerability_alerts   = module.open_source_repository.repository_vulnerability_alerts
       allow_merge_commit     = module.open_source_repository.repository_allow_merge_commit
       allow_rebase_merge     = module.open_source_repository.repository_allow_rebase_merge
       allow_squash_merge     = module.open_source_repository.repository_allow_squash_merge
