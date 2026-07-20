@@ -279,6 +279,7 @@ This module is part of the terraform-aws-landing-zones project and follows the s
 | <a name="output_repository_full_name"></a> [repository\_full\_name](#output\_repository\_full\_name) | The full name of the created repository (owner/repo) |
 | <a name="output_repository_git_clone_url"></a> [repository\_git\_clone\_url](#output\_repository\_git\_clone\_url) | The Git clone URL of the created repository |
 | <a name="output_repository_html_url"></a> [repository\_html\_url](#output\_repository\_html\_url) | The HTML URL of the created repository |
+| <a name="output_repository_id"></a> [repository\_id](#output\_repository\_id) | The ID of the created repository |
 | <a name="output_repository_name"></a> [repository\_name](#output\_repository\_name) | The name of the created repository |
 | <a name="output_repository_ssh_clone_url"></a> [repository\_ssh\_clone\_url](#output\_repository\_ssh\_clone\_url) | The SSH clone URL of the created repository |
 | <a name="output_repository_topics"></a> [repository\_topics](#output\_repository\_topics) | The topics applied to the repository |

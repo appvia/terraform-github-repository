@@ -1,4 +1,7 @@
-# GitHub Repository Module Outputs
+output "repository_id" {
+  description = "The ID of the created repository"
+  value       = github_repository.repository.repo_id
+}
 
 output "repository_name" {
   description = "The name of the created repository"
