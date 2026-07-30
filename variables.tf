@@ -25,6 +25,12 @@ variable "visibility" {
   default     = "private"
 }
 
+variable "enable_template" {
+  description = "Indicates if the repository is a template"
+  type        = bool
+  default     = false
+}
+
 variable "template" {
   description = "The template of the repository to provision"
   type = object({
