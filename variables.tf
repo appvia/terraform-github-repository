@@ -132,6 +132,56 @@ variable "allow_auto_merge" {
   default     = false
 }
 
+variable "allow_update_branch" {
+  description = "Always suggest updating pull request branches; null leaves the provider default"
+  type        = bool
+  default     = null
+}
+
+variable "merge_commit_message" {
+  description = "The default merge commit message: PR_BODY, PR_TITLE or BLANK; null leaves the provider default"
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.merge_commit_message == null ? true : contains(["PR_BODY", "PR_TITLE", "BLANK"], var.merge_commit_message)
+    error_message = "merge_commit_message must be one of PR_BODY, PR_TITLE or BLANK."
+  }
+}
+
+variable "merge_commit_title" {
+  description = "The default merge commit title: PR_TITLE or MERGE_MESSAGE; null leaves the provider default"
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.merge_commit_title == null ? true : contains(["PR_TITLE", "MERGE_MESSAGE"], var.merge_commit_title)
+    error_message = "merge_commit_title must be one of PR_TITLE or MERGE_MESSAGE."
+  }
+}
+
+variable "squash_merge_commit_message" {
+  description = "The default squash merge commit message: PR_BODY, COMMIT_MESSAGES or BLANK; null leaves the provider default"
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.squash_merge_commit_message == null ? true : contains(["PR_BODY", "COMMIT_MESSAGES", "BLANK"], var.squash_merge_commit_message)
+    error_message = "squash_merge_commit_message must be one of PR_BODY, COMMIT_MESSAGES or BLANK."
+  }
+}
+
+variable "squash_merge_commit_title" {
+  description = "The default squash merge commit title: PR_TITLE or COMMIT_OR_PR_TITLE; null leaves the provider default"
+  type        = string
+  default     = null
+
+  validation {
+    condition     = var.squash_merge_commit_title == null ? true : contains(["PR_TITLE", "COMMIT_OR_PR_TITLE"], var.squash_merge_commit_title)
+    error_message = "squash_merge_commit_title must be one of PR_TITLE or COMMIT_OR_PR_TITLE."
+  }
+}
+
 variable "branch_protection" {
   description = "The branch protection to use for the repository"
   type = map(object({
