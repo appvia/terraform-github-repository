@@ -8,22 +8,27 @@ locals {
 
 ## Provision the repositories in github
 resource "github_repository" "repository" {
-  allow_auto_merge       = var.allow_auto_merge
-  allow_merge_commit     = var.allow_merge_commit
-  allow_rebase_merge     = var.allow_rebase_merge
-  allow_squash_merge     = var.allow_squash_merge
-  archived               = var.enable_archived
-  delete_branch_on_merge = var.delete_branch_on_merge
-  description            = var.description
-  has_discussions        = var.enable_discussions
-  has_issues             = var.enable_issues
-  has_projects           = var.enable_projects
-  has_wiki               = var.enable_wiki
-  homepage_url           = var.homepage_url
-  is_template            = var.enable_template
-  name                   = var.repository
-  topics                 = var.topics
-  visibility             = var.visibility
+  allow_auto_merge            = var.allow_auto_merge
+  allow_merge_commit          = var.allow_merge_commit
+  allow_rebase_merge          = var.allow_rebase_merge
+  allow_squash_merge          = var.allow_squash_merge
+  allow_update_branch         = var.allow_update_branch
+  archived                    = var.enable_archived
+  delete_branch_on_merge      = var.delete_branch_on_merge
+  description                 = var.description
+  has_discussions             = var.enable_discussions
+  has_issues                  = var.enable_issues
+  has_projects                = var.enable_projects
+  has_wiki                    = var.enable_wiki
+  homepage_url                = var.homepage_url
+  is_template                 = var.enable_template
+  merge_commit_message        = var.merge_commit_message
+  merge_commit_title          = var.merge_commit_title
+  name                        = var.repository
+  squash_merge_commit_message = var.squash_merge_commit_message
+  squash_merge_commit_title   = var.squash_merge_commit_title
+  topics                      = var.topics
+  visibility                  = var.visibility
 
   dynamic "template" {
     for_each = var.template != null ? [1] : toset([])
